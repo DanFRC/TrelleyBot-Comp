@@ -17,6 +17,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import org.dyn4j.geometry.Rotation;
+import org.photonvision.estimation.VisionEstimation;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -45,6 +46,12 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 public class SwerveSubsystem extends SubsystemBase {
 
   SwerveDrive swerveDrive;
+
+  // enable vision odometry updates while driving
+  private final boolean visionDriveTest = false;
+
+  // photon vision class to keep an accurate odometry
+  private VisionEstimation vision;
 
   double maximumSpeed = Units.feetToMeters(14.5);
 
