@@ -31,6 +31,7 @@ import swervelib.SwerveDrive;
 import swervelib.SwerveDriveTest;
 import swervelib.math.SwerveMath;
 import edu.wpi.first.epilogue.Logged;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -121,7 +122,10 @@ public class SwerveSubsystem extends SubsystemBase {
     });
   }
 
-  
+  // replaces swerve module ff with a new simple motor ff object
+  public void replaceSwerveModuleFeedforward(double ks, double kv, double ka) {
+    swerveDrive.replaceSwerveModuleFeedforward(new SimpleMotorFeedforward(ks, kv, ka));
+  }
 
   // not so simple drive using given speeds / controller inputs
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier angularRotationX) {
@@ -159,7 +163,7 @@ public class SwerveSubsystem extends SubsystemBase {
     });
   }
 
-    // primary control method:
+  // primary control method:
   public void drive(Translation2d translation, double rotation, boolean fieldRelative) {
     swerveDrive.drive(
       translation,
@@ -167,6 +171,7 @@ public class SwerveSubsystem extends SubsystemBase {
       fieldRelative,
       false);
   }
+  // drive according to the cahssis robot oriented velocity
   public void drive(ChassisSpeeds velocity) {
     swerveDrive.drive(velocity);
   }
